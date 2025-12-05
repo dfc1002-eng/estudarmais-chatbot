@@ -109,5 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Mensagem inicial
-    addMessage("Olá! Sou o Assistente Estudar+. Como posso ajudar você hoje?", "agent");
-});
+    addMessage(
+    "Olá! 👋 Sou o Assistente Estudar+. Vamos começar?\n\n" +
+    "Qual programa você tem interesse em seguir?\n" +
+    "1) Graduação\n" +
+    "2) Pós-graduação\n" +
+    "3) Summer Program",
+    "agent"
+);
