@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showTypingIndicator();
 
         try {
-            if (webhookUrl === 'https://hook.make.com/SEU_WEBHOOK_AQUI' || !webhookUrl) {
+            if (webhookUrl === 'https://hook.us2.make.com/a3vuminl246b9dq22fsvork3zlbpt9d1' || !webhookUrl) {
                 addMessage("Por favor, configure a URL do webhook no arquivo script.js para que o chatbot possa funcionar.", "system");
                 return;
             }
