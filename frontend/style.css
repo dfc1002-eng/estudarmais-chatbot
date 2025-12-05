@@ -1,0 +1,172 @@
+:root {
+    --primary-blue: #2d5ae8;
+    --neutral-light: #f8f9fa;
+    --neutral-medium: #e9ecef;
+    --neutral-dark: #adb5bd;
+    --text-dark: #212529;
+    --text-light: #ffffff;
+    --card-background: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--neutral-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-dark);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 400px; /* Mobile-first: max-width para telas maiores */
+    height: 90vh; /* Altura para ocupar a maior parte da tela */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    overflow: hidden;
+    margin: 20px; /* Espaçamento em telas menores */
+}
+
+.chat-header {
+    padding: 16px;
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chat-title {
+    margin: 0;
+    font-size: 1.25rem; /* 20px */
+    font-weight: 600;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background-color: var(--neutral-light);
+}
+
+.message-bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 18px;
+    line-height: 1.4;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+}
+
+.message-user {
+    align-self: flex-end;
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    border-bottom-right-radius: 4px; /* Estilo de balão de chat */
+}
+
+.message-agent {
+    align-self: flex-start;
+    background-color: var(--neutral-medium);
+    color: var(--text-dark);
+    border-bottom-left-radius: 4px; /* Estilo de balão de chat */
+}
+
+.message-system {
+    align-self: center;
+    background-color: #fff3cd; /* Cor suave para mensagens de sistema */
+    color: #856404;
+    font-size: 0.85rem;
+    font-style: italic;
+    text-align: center;
+    border-radius: 8px;
+    padding: 8px 12px;
+    max-width: 90%;
+}
+
+.chat-input-area {
+    display: flex;
+    padding: 16px;
+    border-top: 1px solid var(--neutral-medium);
+    background-color: var(--card-background);
+}
+
+.chat-input {
+    flex-grow: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--neutral-medium);
+    border-radius: 20px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+    border-color: var(--primary-blue);
+}
+
+.send-button {
+    background-color: var(--primary-blue);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    flex-shrink: 0; /* Evita que o botão encolha */
+}
+
+.send-button:hover {
+    background-color: #254ac7; /* Um tom um pouco mais escuro de azul */
+}
+
+.send-button:active {
+    transform: scale(0.98);
+}
+
+.send-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Estilo para o indicador de digitação */
+.typing-indicator {
+    align-self: flex-start;
+    background-color: var(--neutral-medium);
+    color: var(--text-dark);
+    border-bottom-left-radius: 4px;
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+/* Media query para telas maiores (desktop) */
+@media (min-width: 768px) {
+    .chat-container {
+        height: 80vh; /* Um pouco menor em desktop */
+        max-width: 450px;
+    }
+}
