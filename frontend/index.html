@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudar+ Chatbot</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1 class="chat-title">Estudar+ Atendimento</h1>
+            <div class="bot-avatar">
+                <!-- Ícone de chapéu acadêmico (diploma) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap">
+                    <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.084a1 1 0 0 0 0 1.838l8.57 3.838a2 2 0 0 0 1.66 0z"/>
+                    <path d="M22 10v6"/>
+                    <path d="M6 12.5V16a6 6 0 0 0 12 0v-3.5"/>
+                    <path d="M12 2v3"/>
+                </svg>
+            </div>
+            <h1 class="chat-title">Assistente Estudar+</h1>
         </div>
         <div class="chat-messages" id="chat-messages">
             <!-- As mensagens serão inseridas aqui pelo JavaScript -->
@@ -18,7 +28,11 @@
         <div class="chat-input-area">
             <input type="text" id="user-input" placeholder="Digite sua mensagem..." class="chat-input">
             <button id="send-button" class="send-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4 20-7Z"/><path d="M22 2 11 13"/></svg>
+                <!-- Ícone de enviar -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send">
+                    <path d="m22 2-7 20-4-9-9-4 20-7Z"/>
+                    <path d="M22 2 11 13"/>
+                </svg>
             </button>
         </div>
     </div>
