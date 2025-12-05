@@ -3,13 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const userInput = document.getElementById('user-input');
     const sendButton = document.getElementById('send-button');
 
-    // Configure a URL do seu webhook aqui
-    const webhookUrl = "https://hook.us2.make.com/a3vuminl246b9dq22fsvork3zlbpt9d1"; 
+    // URL do webhook do Make.com
+    const webhookUrl = "https://hook.us2.make.com/a3vuminl246b9dq22fsvork3zlbpt9d1";
 
     /**
      * Adiciona uma nova mensagem ao chat.
-     * @param {string} text - O texto da mensagem.
-     * @param {'user' | 'agent' | 'system'} sender - O remetente da mensagem.
      */
     const addMessage = (text, sender) => {
         const messageBubble = document.createElement('div');
@@ -23,34 +21,30 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (sender === 'system') {
             messageBubble.classList.add('message-system');
         }
-        chatMessages.appendChild(messageBubble);
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Rola para a última mensagem
-    };
 
-    /**
-     * Exibe o indicador de digitação do assistente.
-     */
-    const showTypingIndicator = () => {
-        const typingIndicator = document.createElement('div');
-        typingIndicator.classList.add('message-bubble', 'typing-indicator');
-        typingIndicator.id = 'typing-indicator';
-        typingIndicator.textContent = 'Digitando...';
-        chatMessages.appendChild(typingIndicator);
+        chatMessages.appendChild(messageBubble);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     };
 
     /**
-     * Remove o indicador de digitação do assistente.
+     * Indicador de digitação
      */
+    const showTypingIndicator = () => {
+        const indicator = document.createElement('div');
+        indicator.id = 'typing-indicator';
+        indicator.classList.add('message-bubble', 'typing-indicator');
+        indicator.textContent = 'Digitando...';
+        chatMessages.appendChild(indicator);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
     const removeTypingIndicator = () => {
-        const typingIndicator = document.getElementById('typing-indicator');
-        if (typingIndicator) {
-            typingIndicator.remove();
-        }
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
     };
 
     /**
-     * Envia a mensagem do usuário para o webhook e exibe a resposta do assistente.
+     * Função corrigida para enviar mensagem ao webhook e interpretar JSON
      */
     const sendMessage = async () => {
         const messageText = userInput.value.trim();
@@ -58,55 +52,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
         addMessage(messageText, 'user');
         userInput.value = '';
-        sendButton.disabled = true; // Desabilita o botão enquanto aguarda a resposta
-        userInput.disabled = true; // Desabilita o input
+        userInput.disabled = true;
+        sendButton.disabled = true;
 
         showTypingIndicator();
 
         try {
-            if (webhookUrl === 'https://hook.us2.make.com/a3vuminl246b9dq22fsvork3zlbpt9d1' || !webhookUrl) {
-                addMessage("Por favor, configure a URL do webhook no arquivo script.js para que o chatbot possa funcionar.", "system");
-                return;
-            }
-
             const response = await fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message: messageText }),
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: messageText })
             });
 
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({ message: 'Erro desconhecido' }));
-                addMessage(`Erro do assistente: ${errorData.message || response.statusText}`, 'system');
-                throw new Error(`HTTP error! status: ${response.status}`);
+            const contentType = response.headers.get("content-type");
+            let data;
+
+            // Se vier JSON, converte. Se vier texto, tenta converter e fallback como texto.
+            if (contentType && contentType.includes("application/json")) {
+                data = await response.json();
+            } else {
+                const text = await response.text();
+                try {
+                    data = JSON.parse(text);
+                } catch {
+                    data = { response: text };
+                }
             }
 
-            const data = await response.json();
-            addMessage(data.reply || "Desculpe, não consegui obter uma resposta do assistente.", 'agent');
+            // Exibe a resposta final
+            addMessage(
+                data.response ||
+                data.reply ||
+                "Desculpe, não consegui interpretar a resposta do servidor.",
+                "agent"
+            );
 
         } catch (error) {
-            console.error('Erro ao enviar mensagem para o assistente:', error);
-            addMessage("Ocorreu um erro ao se comunicar com o assistente. Por favor, tente novamente.", 'system');
+            console.error("Erro ao enviar mensagem:", error);
+            addMessage("Ocorreu um erro ao se comunicar com o assistente. Por favor, tente novamente.", "system");
         } finally {
             removeTypingIndicator();
-            sendButton.disabled = false; // Habilita o botão novamente
-            userInput.disabled = false; // Habilita o input
-            userInput.focus(); // Foca no input para facilitar a próxima mensagem
+            userInput.disabled = false;
+            sendButton.disabled = false;
+            userInput.focus();
         }
     };
 
-    // Event listener para o botão de enviar
+    // Enviar pelo botão
     sendButton.addEventListener('click', sendMessage);
 
-    // Event listener para a tecla Enter no campo de input
+    // Enviar pelo Enter
     userInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter' && !sendButton.disabled) {
             sendMessage();
         }
     });
 
-    // Mensagem de boas-vindas inicial do assistente
+    // Mensagem inicial
     addMessage("Olá! Sou o Assistente Estudar+. Como posso ajudar você hoje?", "agent");
 });
