@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendButton = document.getElementById('send-button');
 
     // Configure a URL do seu webhook aqui
-    const webhookUrl = "https://hook.make.com/SEU_WEBHOOK_AQUI"; 
+    const webhookUrl = "https://hook.us2.make.com/a3vuminl246b9dq22fsvork3zlbpt9d1"; 
 
     /**
      * Adiciona uma nova mensagem ao chat.
