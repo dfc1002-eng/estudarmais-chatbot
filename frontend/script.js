@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Mensagem inicial
-    addMessage(
+   addMessage(
     "Olá! 👋 Sou o Assistente Estudar+. Vamos começar?\n\n" +
     "Qual programa você tem interesse em seguir?\n" +
     "1) Graduação\n" +
