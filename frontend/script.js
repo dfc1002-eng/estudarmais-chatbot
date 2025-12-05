@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mensagem inicial (exemplo)
     addMessage(
-        "Olá! 👋 Sou o Assistente Estudar+. Vamos começar?\n\n" +
+        "Olá! Sou o Assistente Estudar+. Vamos começar?\n\n" +
         "Qual programa você tem interesse em seguir?\n" +
         "1) Graduação\n" +
         "2) Pós-graduação\n" +
