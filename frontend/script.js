@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Debug opcional:
     // console.log('SessionId:', sessionId);
 
-    // URL do webhook do Make.com
-    const webhookUrl = "https://hook.us2.make.com/a3vuminl246b9dq22fsvork3zlbpt9d1";
+    // URL do webhook do n8n
+    const webhookUrl = "http://localhost:5678/webhook-test/estudarmais";
 
     const addMessage = (text, sender) => {
         const messageBubble = document.createElement('div');
